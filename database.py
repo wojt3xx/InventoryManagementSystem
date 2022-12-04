@@ -30,9 +30,17 @@ def search_ims_items():
     pass
 
 
-def sell_ims_item():
+def update_item_quantity():
     pass
 
 
-def delete_ims_item():
-    pass
+def sell_ims_item(product_number, amount):
+    with DatabaseConnection('inventory.db') as connection:
+        cursor = connection.cursor()
+        cursor.execute('UPDATE inventory SET quantity = quantity - ? WHERE product_number = ?', (product_number, amount))
+
+
+def delete_ims_item(product_number):
+    with DatabaseConnection('inventory.db') as connection:
+        cursor = connection.cursor()
+        cursor.execute('DELETE FROM inventory WHERE product_number=?', (product_number,))

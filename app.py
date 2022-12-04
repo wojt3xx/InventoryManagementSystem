@@ -7,6 +7,7 @@ Enter:
 - 'l' to list all items
 - 'f' to search for specific item
 - 'w' to mark an item sold
+- 'u' to update item quantity
 - 'd' to delete an item
 - 'q' to quit
 
@@ -27,6 +28,8 @@ def menu():
             search_item()
         elif user_input == 'w':
             item_sold()
+        elif user_input == 'u':
+            item_update()
         elif user_input == 'd':
             delete_item()
         else:
@@ -49,21 +52,28 @@ def add_new_item():
 
 def list_all_items():
     items = database.list_ims_items()
+    print("product_name | product_number | category | price | discount | quantity")
     for item in items:
-        print("product_name | product_number | category | price | discount | quantity")
-        print(f"{item['product_name']} | {item['product_number']} | {item['category']} | {item['price']} | {item['discount']} | {item['quantity']}")
+        print(f"{item['product_name']} | {item['product_number']} | {item['category']} | ${item['price']} | ${item['discount']} | {item['quantity']}")
 
 
 def search_item():
     pass
 
 
-def item_sold():
+def item_update():
     pass
+
+
+def item_sold():
+    product_number = int(input("Enter the product number for the item you wish to update: "))
+    amount = int(input("Enter the amount for the items sold: "))
+    database.sell_ims_item(product_number, amount)
 
 
 def delete_item():
-    pass
+    product_number = input("Enter the product number of the item you wish to delete: ")
+    database.delete_ims_item(product_number)
 
 
 menu()
