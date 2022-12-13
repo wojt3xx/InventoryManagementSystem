@@ -25,7 +25,7 @@ def menu():
         elif user_input == 'l':
             list_all_items()
         elif user_input == 'f':
-            search_item()
+            search_category_items()
         elif user_input == 'w':
             item_sold()
         elif user_input == 'u':
@@ -57,8 +57,12 @@ def list_all_items():
         print(f"{item['product_name']} | {item['product_number']} | {item['category']} | ${item['price']} | ${item['discount']} | {item['quantity']}")
 
 
-def search_item():
-    pass
+def search_category_items():
+    category = input("Enter the category name you want to find: ")
+    items = database.search_ims_category_items(category)
+    for item in items:
+        print(
+            f"{item['product_name']} | {item['product_number']} | {item['category']} | ${item['price']} | ${item['discount']} | {item['quantity']}")
 
 
 def item_update():

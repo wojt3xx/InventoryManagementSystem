@@ -26,8 +26,10 @@ def list_ims_items():
     return items_list
 
 
-def search_ims_items():
-    pass
+def search_ims_category_items(category):
+    with DatabaseConnection('inventory.db') as connection:
+        cursor = connection.cursor()
+        cursor.execute(f'SELECT * FROM inventory WHERE category = ?', (category,))
 
 
 def update_item_quantity():
