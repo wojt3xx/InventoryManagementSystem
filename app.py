@@ -60,13 +60,16 @@ def list_all_items():
 def search_category_items():
     category = input("Enter the category name you want to find: ")
     items = database.search_ims_category_items(category)
+    print("product_name | product_number | category | price | discount | quantity")
     for item in items:
         print(
             f"{item['product_name']} | {item['product_number']} | {item['category']} | ${item['price']} | ${item['discount']} | {item['quantity']}")
 
 
 def item_update():
-    pass
+    product_number = int(input("Enter the product number for the item you wish to update: "))
+    amount = int(input("Enter the amount for the items sold: "))
+    database.update_item_quantity(product_number, amount)
 
 
 def item_sold():

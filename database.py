@@ -30,10 +30,16 @@ def search_ims_category_items(category):
     with DatabaseConnection('inventory.db') as connection:
         cursor = connection.cursor()
         cursor.execute(f'SELECT * FROM inventory WHERE category = ?', (category,))
+        items_list = [{'product_name': row[0], 'product_number': row[1], 'category': row[2],
+                       'price': row[3], 'discount': row[4], 'quantity': row[5]} for row in cursor.fetchall()]
+    return items_list
 
 
-def update_item_quantity():
-    pass
+def update_item_quantity(product_number, amount):
+    with DatabaseConnection('inventory.db') as connection:
+        cursor = connection.cursor()
+        cursor.execute('UPDATE inventory SET quantity = ? WHERE product_number = ?',
+                       (product_number, amount))
 
 
 def sell_ims_item(product_number, amount):
